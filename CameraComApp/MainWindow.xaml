@@ -1,0 +1,54 @@
+﻿<Window x:Class="CameraComApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Camera and COM/Socket App" Height="442.5" Width="705.5" ResizeMode="CanResizeWithGrip" Visibility="Visible">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="290"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="5">
+            <Button x:Name="StartButton" Content="Start Camera" Click="StartButton_Click" Margin="5"/>
+            <Button x:Name="StopButton" Content="Stop Camera" Click="StopButton_Click" Margin="5"/>
+            <ComboBox x:Name="CameraComboBox" Width="131" Margin="5" SelectionChanged="CameraComboBox_SelectionChanged"/>
+            <ToggleButton x:Name="ShowLogButton" Content="Show/Hide Log" Margin="5" Click="ShowLogButton_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="5">
+            <RadioButton x:Name="ComRadioButton" Content="COM Port" IsChecked="True" Margin="5" GroupName="ConnectionType"/>
+            <ComboBox x:Name="ComPortComboBox" Width="68" Margin="5"/>
+            <RadioButton x:Name="SocketRadioButton" Content="Socket" Margin="5" GroupName="ConnectionType"/>
+            <TextBox x:Name="IpAddressTextBox" Width="75" Margin="5" Text="127.0.0.1"/>
+            <TextBox x:Name="PortTextBox" Width="42" Margin="5" Text="12345"/>
+        </StackPanel>
+
+        <Image x:Name="CameraImage" Grid.Row="2" Grid.Column="0" Stretch="Uniform" Margin="5,5,0,5"/>
+
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="3" Grid.Column="0" Margin="5" FontSize="14"/>
+
+        <Grid x:Name="LogGrid" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <DataGrid x:Name="LogDataGrid" Grid.Row="1" Margin="0,5,5,5" 
+                    CanUserAddRows="False" 
+                    ScrollViewer.CanContentScroll="True" 
+                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                    AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Time" Binding="{Binding Timestamp}" Width="125"/>
+                    <DataGridTextColumn Header="Event" Binding="{Binding Event}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
